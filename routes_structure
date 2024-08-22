@@ -1,0 +1,11 @@
+ROUTES PLAN
+
+- POST   /login
+- POST   /register
+- POST   /logout
+
+- GET    /contacts
+- GET    /contacts/:id
+- POST   /contacts
+- PUT    /contacts/:id
+- DELETE /contacts/:id

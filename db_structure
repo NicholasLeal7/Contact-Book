@@ -1,0 +1,15 @@
+DATABASE PLAN
+
+USER
+ - user_id
+ - name
+ - phone
+ - email
+ - password
+
+Contacts
+ - contact_id
+ - userId
+ - name
+ - phone
+ - createdAt
