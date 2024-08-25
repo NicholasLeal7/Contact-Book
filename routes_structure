@@ -4,8 +4,10 @@ ROUTES PLAN
 - POST   /register
 - POST   /logout
 
-- GET    /contacts
-- GET    /contacts/:id
-- POST   /contacts
-- PUT    /contacts/:id
-- DELETE /contacts/:id
+- PUT   /user/:id_user
+
+- GET    /contacts/:id_contact/:id_user
+- GET    /contacts/:id_contact/:id_user
+- POST   /contacts/:id_contact/:id_user
+- PUT    /contacts/:id_contact/:id_user
+- DELETE /contacts/:id_contact/:id_user

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+
+    <!-- <header></header> -->
+
+    <main>
+        <div class="header">
+            <div class="option" option="profile" flag="0">Profile</div>
+            <div class="option active" option="contacts" flag="1">Contacts</div>
+            <div class="option" option="more" flag="0">More</div>
+        </div>
+
+        <div class="content profile">
+            <div class="my-profile-user">
+                <div class="my-profile-img"><i class="fa-solid fa-user"></i></div>
+                <div class="my-profile-name">Nicholas Leal</div>
+            </div>
+
+            <div class="my-profile-info">
+                <div class="input-group">
+                    <div class="input-edit">
+                        <label for="">Username</label>
+                        <input type="text" placeholder="">
+                    </div>
+                    <div class="input-edit">
+                        <label for="">Email</label>
+                        <input type="email" placeholder="">
+                    </div>
+                    <div class="input-edit">
+                        <label for="">Phone</label>
+                        <input type="text" placeholder="">
+                    </div>
+                    <div class="input-edit">
+                        <label for="">Password</label>
+                        <input type="password" placeholder="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="edit-profile">
+                <button type="button">Edit info</button>
+            </div>
+
+            <h5 class="powered-by">© 2024 Powered by nicholasleal7.</h5>
+        </div>
+
+        <div class="content contacts active">
+
+            <div class="search-group">
+                <h3>Search Name & Number</h3>
+                <div class="input-field">
+                    <input type="text" placeholder="Search...">
+                    <div class="search-button"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="clean-button"><i class="fa-solid fa-x"></i></div>
+                </div>
+            </div>
+
+            <div class="contacts-list">
+
+                <!-- <div class="contact">
+                    <div class="profile-img"><i class="fa-solid fa-user"></i></div>
+                    <div class="profile-info">
+                        <span class="name">Nicholas dos Santos Leal</span>
+                        <span class="subtitle">+55 (11) 96956-6534</span>
+                    </div>
+                </div> -->
+
+                <!-- <div class="not-founded">
+                    <div class="img">
+                        <i class="fa-solid fa-child-reaching"></i>
+                    </div>
+                    <span>No contacts found.</span>
+                </div> -->
+
+            </div>
+
+            <h5 class="contact-count">Total contacts (<span>0</span>)</h5>
+
+            <div class="add-contact">
+                <button type="button" id="btn_add_contact">+ Add contact</button>
+            </div>
+
+            <h5 class="powered-by">© 2024 Powered by nicholasleal7.</h5>
+
+        </div>
+
+        <div class="content more">
+            <div class="no-more">
+                <i class="fa-solid fa-warning"></i>
+                <span>Nothing here yet...</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal modal-add-contact">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Add Contact</h2>
+                <div class="icon"><i class="fa-solid fa-x"></i></div>
+            </div>
+
+            <form action="../contacts" method="post" id="form_add_contact">
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="">Name</label>
+                        <input required type="text" placeholder="" name="name">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Email</label>
+                        <input required type="email" placeholder="" name="email">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Phone</label>
+                        <input required type="text" placeholder="" name="phone">
+                    </div>
+                </div>
+
+                <div class="modal-button">
+                    <button type="submit" id="btn_modal_add_contact">+ Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal modal-edit-contact">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Edit Contact</h2>
+                <div class="icon"><i class="fa-solid fa-x"></i></div>
+            </div>
+
+            <form action="" method="post" id="form_edit_contact">
+
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="">Name</label>
+                        <input required class="modal-edit-contact-name" type="text" placeholder="" name="name">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Email</label>
+                        <input required class="modal-edit-contact-email" type="email" placeholder="" name="email">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Phone</label>
+                        <input required class="modal-edit-contact-phone" type="text" placeholder="" name="phone">
+                    </div>
+                </div>
+
+                <div class="modal-button">
+                    <div class="button-line">
+                        <div class="date-add">
+                            <span>Added:</span>
+                            <span>26/10/2000</span>
+                        </div>
+
+                        <div class="edit-buttons">
+                            <div class="btn-delete">
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+
+                            <div class="btn-update">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="modal modal-confirm">
+        <div class="modal-content">
+
+            <div class="confirm-text">
+                <div class="warning-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <div class="warning-text">Are you sure? Deleting cannot be undone.</div>
+            </div>
+
+            <div class="confirm-buttons">
+                <button type="button" class="cancel" id="confirm_keep">No, keep</button>
+                <button type="button" class="delete" id="confirm_delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert-message">
+        <div class="alert-header">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Info</span>
+        </div>
+        <div class="alert-body">
+            Invalid fields
+        </div>
+    </div>
+
+    <script src="assets/js/index.js"></script>
+</body>
+
+</html>

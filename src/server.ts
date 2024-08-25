@@ -5,6 +5,7 @@ import { requestErrorHandler } from './middlewares/errorHandler';
 import { requestIntercepter } from './middlewares/requestIntercepter';
 import http from 'http';
 import mainRoutes from './routes';
+import passport from 'passport';
 
 dotenv.config();
 
@@ -15,12 +16,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(requestIntercepter);
+app.use(passport.initialize());
 
 //routes
-app.get("/ping", (req, res) => res.json({ pong: true }));
+app.get("/ping", (req, res) => res.status(200).json({ pong: true }));
 app.use("/", mainRoutes);
 
-//error handler
+//error handler and not founded
+app.use((req, res) => res.status(404).json({ error: 'Route not founded!' }));
 app.use(requestErrorHandler);
 
 //server's run configurations

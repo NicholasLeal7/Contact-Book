@@ -14,42 +14,112 @@
     <header>
         <h2>Contact Book</h2>
         <nav>
-            <a href="#">GitHub</a>
-            <a href="#">About</a>
-            <a href="#">Register</a>
-            <button type="button">Login</button>
+            <a href="https://github.com/NicholasLeal7/Contact-Book">GitHub</a>
+            <a href="#" class="btn-about">About</a>
+            <a href="#" class="btn-register">Register</a>
+            <button type="button" class="btn-login">Login</button>
         </nav>
     </header>
 
-    <div class="wrapper">
-        <div class="form-box-login">
-            <form action="#">
+    <div class="wrapper visible">
+        <div class="form-box login">
+            <form action="../login" method="post" id="form_login">
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="email">
+                    <input id="login_email" required type="text" placeholder="Email" name="email">
                     <i class="bi bi-person-fill"></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="password">
+                    <input id="login_password" minlength="6" required type="text" placeholder="Password"
+                        name="password">
                     <i class="bi bi-lock-fill"></i>
                 </div>
-                <div class="remember-forgot">
+                <div class="remember-forgot-terms">
                     <label for="">
                         <input type="checkbox">
                         Remember me
                     </label>
-                    <a href="">
+                    <a href="#">
                         Forgot password?
                     </a>
                 </div>
                 <button class="button-login">Login</button>
-                <div class="register-link">
+                <div class="register-login">
                     <p>
                         Don't have an account?
-                        <a href="#">Register</a>
+                        <a href="#" class="btn-register">Register</a>
                     </p>
                 </div>
             </form>
+        </div>
+
+        <div class="form-box register">
+            <form action="../register" method="post" id="form_register">
+                <h1>Register</h1>
+                <div class="input-box">
+                    <input required type="text" placeholder="Name" name="name">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="input-box">
+                    <input required type="email" placeholder="Email" name="email">
+                    <i class="bi bi-mailbox2"></i>
+                </div>
+                <div class="input-box">
+                    <input required type="text" placeholder="Phone" name="phone">
+                    <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div class="input-box">
+                    <input required minlength="6" type="password" placeholder="Password" name="password">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <div class="remember-forgot-terms">
+                    <label for="">
+                        <input required type="checkbox">
+                        I agree to the terms & conditions
+                    </label>
+                </div>
+                <button class="button-login">Register</button>
+                <div class="register-login">
+                    <p>
+                        Already have an account?
+                        <a href="#" class="btn-login">Login</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <main class="about">
+        <section class="img">
+            <img src="assets/img/about-img1.svg" alt="">
+        </section>
+        <section class="about-text">
+            <h1>Contact Book</h1>
+            <h3>A Typescript and Postgres Full Stack App</h3>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                and
+                scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                leap
+                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the
+                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                publishing
+                software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            <a href="https://github.com/NicholasLeal7/Contact-Book"><button type="button" class="github-button">View on
+                    GitHub</button></a>
+        </section>
+    </main>
+
+    <div class="alert-message">
+        <div class="alert-header">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Info</span>
+        </div>
+        <div class="alert-body">
+            Invalid fields
         </div>
     </div>
 

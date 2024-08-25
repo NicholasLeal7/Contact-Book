@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 * {
     margin: 0;
@@ -17,6 +18,7 @@ body {
     background: url('../img/img.jpg');
     background-size: cover;
     background-position: center;
+    overflow: hidden;
 }
 
 header {
@@ -82,22 +84,53 @@ header nav button:hover {
 }
 
 .wrapper {
-    width: 400px;
-    background-color: transparent;
+    position: relative;
+    width: 420px;
+    height: 450px;
     backdrop-filter: blur(20px);
+    background: transparent;
     border-radius: 20px;
     border: 2px solid rgba(255, 255, 255, .2);
-    box-shadow: 0px 0 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     color: #fff;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform .5s ease, height 1s ease;
 }
 
-.form-box-login {
-    padding: 40px;
+.form-box {
+    padding: 30px 40px;
+    width: 100%;
+}
+
+.login {
+    transform: translateX(0px);
+    transition: transform .18s ease;
+}
+
+.register {
+    position: absolute;
+
+    transform: translateX(400px);
+}
+
+.wrapper.active .login {
+    transform: translateX(-400px);
+}
+
+.wrapper.active .register {
+    transform: translateX(0px);
+}
+
+.wrapper.active {
+    height: 580px;
 }
 
 .wrapper h1 {
-    font-size: 36px;
     text-align: center;
+    font-size: 36px;
 }
 
 .input-box {
@@ -110,13 +143,13 @@ header nav button:hover {
 .input-box input {
     width: 100%;
     height: 100%;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 40px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    background: transparent;
     font-size: 16px;
     color: #fff;
-    outline: none;
     padding: 20px 40px 20px 20px;
+    outline: none;
 }
 
 .input-box input::placeholder {
@@ -127,44 +160,142 @@ header nav button:hover {
     position: absolute;
     top: 50%;
     right: 20px;
-    transform: translateY(-15px);
     font-size: 20px;
+    transform: translateY(-14px);
 }
 
-.remember-forgot {
+.remember-forgot-terms {
     display: flex;
     justify-content: space-between;
     margin: -15px 0 15px;
+    font-size: 14.5px
 }
 
-.remember-forgot a {
+.remember-forgot-terms label input {
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forgot-terms a {
     text-decoration: none;
     color: #fff;
 }
 
-.remember-forgot a:hover {
+.remember-forgot-terms a:hover {
     text-decoration: underline;
 }
 
 .button-login {
     width: 100%;
-    height: 50px;
+    height: 45px;
+    font-weight: 600;
+    color: #333;
     border-radius: 40px;
     border: none;
     font-size: 16px;
-    font-weight: 600;
+    outline: none;
+    cursor: pointer;
 }
 
-.register-link {
+.register-login {
     margin: 20px 0 15px;
     text-align: center;
+    font-size: 14.5px;
 }
 
-.register-link a {
+.register-login a {
     text-decoration: none;
     color: #fff;
 }
 
-.register-link a:hover {
+.register-login a:hover {
     text-decoration: underline;
+}
+
+.about {
+    display: none;
+    width: 1000px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
+}
+
+.about img {
+    width: 20rem;
+    height: 35rem;
+}
+
+.about .img {
+    background-color: #2e3a49;
+    border-radius: 5px 0 0 5px;
+}
+
+.about-text {
+    background-color: #121D2B;
+    padding: 40px;
+    border-radius: 0 5px 5px 0;
+}
+
+.about-text h1,
+.about-text h3,
+.about-text p {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.about-text h1 {
+    font-size: 45px;
+}
+
+.github-button {
+    width: 130px;
+    height: 45px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.github-button:hover {
+    background-color: rgb(182, 182, 182);
+}
+
+.wrapper.visible {
+    display: flex;
+}
+
+.about.visible {
+    display: flex;
+}
+
+.invalid-field {
+    border: 2px solid rgb(207, 79, 79) !important;
+}
+
+.alert-message {
+    position: absolute;
+    top: 20px;
+    right: -500px;
+    width: 300px;
+    transition: all 2s ease;
+    background-color: #121D2B;
+    border-radius: 6px;
+}
+
+.alert-header {
+    width: 100%;
+    border-bottom: 2px solid #B554D7;
+    padding: 10px 15px;
+    display: flex;
+    gap: 7px;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.alert-body {
+    padding: 15px;
+    color: #fff;
+    font-size: 16px;
 }
