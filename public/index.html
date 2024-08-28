@@ -10,7 +10,13 @@
 
 <body>
 
-    <!-- <header></header> -->
+    <header>
+        <h2>Contact Book</h2>
+
+        <nav>
+            <button type="button" id="btnExit">Exit</button>
+        </nav>
+    </header>
 
     <main>
         <div class="header">
@@ -21,34 +27,41 @@
 
         <div class="content profile">
             <div class="my-profile-user">
-                <div class="my-profile-img"><i class="fa-solid fa-user"></i></div>
+                <div class="my-profile-img"><img src="" alt=""></div>
                 <div class="my-profile-name">Nicholas Leal</div>
             </div>
 
-            <div class="my-profile-info">
-                <div class="input-group">
-                    <div class="input-edit">
-                        <label for="">Username</label>
-                        <input type="text" placeholder="">
-                    </div>
-                    <div class="input-edit">
-                        <label for="">Email</label>
-                        <input type="email" placeholder="">
-                    </div>
-                    <div class="input-edit">
-                        <label for="">Phone</label>
-                        <input type="text" placeholder="">
-                    </div>
-                    <div class="input-edit">
-                        <label for="">Password</label>
-                        <input type="password" placeholder="">
+            <form action="#" method="post" id="form_edit_profile">
+                <div class="my-profile-info">
+                    <div class="input-group">
+                        <div class="input-edit">
+                            <label for="">Profile Pic</label>
+                            <input type="file" placeholder="" name="photo_url">
+                        </div>
+                        <div class="input-edit">
+                            <label for="">Username</label>
+                            <input type="text" placeholder="" id="user_name" name="name">
+                        </div>
+                        <div class="input-edit">
+                            <label for="">Email</label>
+                            <input type="email" placeholder="" id="user_email" name="email">
+                        </div>
+                        <div class="input-edit">
+                            <label for="">Phone</label>
+                            <input type="text" placeholder="" id="user_phone" name="phone">
+                        </div>
+                        <div class="input-edit">
+                            <label for="">Password</label>
+                            <input type="password" required minlength="6" placeholder="" id="user_password"
+                                name="password">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="edit-profile">
-                <button type="button">Edit info</button>
-            </div>
+                <div class="edit-profile">
+                    <button type="submit">Edit info</button>
+                </div>
+            </form>
 
             <h5 class="powered-by">© 2024 Powered by nicholasleal7.</h5>
         </div>
@@ -58,9 +71,9 @@
             <div class="search-group">
                 <h3>Search Name & Number</h3>
                 <div class="input-field">
-                    <input type="text" placeholder="Search...">
+                    <input id="input_search" type="text" placeholder="Search...">
                     <div class="search-button"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <div class="clean-button"><i class="fa-solid fa-x"></i></div>
+                    <div class="clear-button"><i class="fa-solid fa-x"></i></div>
                 </div>
             </div>
 
@@ -112,6 +125,10 @@
             <form action="../contacts" method="post" id="form_add_contact">
                 <div class="modal-body">
                     <div class="input-group">
+                        <label for="">Profile Pic</label>
+                        <input type="file" placeholder="" name="photo_url">
+                    </div>
+                    <div class="input-group">
                         <label for="">Name</label>
                         <input required type="text" placeholder="" name="name">
                     </div>
@@ -143,17 +160,24 @@
             <form action="" method="post" id="form_edit_contact">
 
                 <div class="modal-body">
+                    <div class="pfp-area">
+                        <div class="pfp-img"><img src="" alt=""></div>
+                    </div>
+                    <div class="input-group">
+                        <label for="">Profile Pic</label>
+                        <input type="file" placeholder="" name="photo_url">
+                    </div>
                     <div class="input-group">
                         <label for="">Name</label>
-                        <input required class="modal-edit-contact-name" type="text" placeholder="" name="name">
+                        <input class="modal-edit-contact-name" type="text" placeholder="" name="name">
                     </div>
                     <div class="input-group">
                         <label for="">Email</label>
-                        <input required class="modal-edit-contact-email" type="email" placeholder="" name="email">
+                        <input class="modal-edit-contact-email" type="email" placeholder="" name="email">
                     </div>
                     <div class="input-group">
                         <label for="">Phone</label>
-                        <input required class="modal-edit-contact-phone" type="text" placeholder="" name="phone">
+                        <input class="modal-edit-contact-phone" type="text" placeholder="" name="phone">
                     </div>
                 </div>
 
@@ -161,7 +185,7 @@
                     <div class="button-line">
                         <div class="date-add">
                             <span>Added:</span>
-                            <span>26/10/2000</span>
+                            <span class="date">26/10/2000</span>
                         </div>
 
                         <div class="edit-buttons">
@@ -171,6 +195,7 @@
 
                             <div class="btn-update">
                                 <i class="fa-solid fa-check"></i>
+                                <input type="submit" id="trigger_submit">
                             </div>
                         </div>
 

@@ -4,10 +4,16 @@ const btnAddContact = document.querySelector('#btn_add_contact');
 const btnCloseModal = document.querySelectorAll('.modal-header .icon');
 const contactsList = document.querySelector('.contacts-list');
 const formAddContact = document.querySelector("#form_add_contact");
+const formEditProfile = document.querySelector("#form_edit_profile");
+const formEditContact = document.querySelector("#form_edit_contact");
 const btnDelete = document.querySelector('.btn-delete');
 const btnConfirmKeep = document.querySelector('#confirm_keep');
 const btnConfirmDelete = document.querySelector('#confirm_delete');
 const contactsCount = document.querySelector('.contact-count span');
+const btnUpdate = document.querySelector(".btn-update");
+const btnExit = document.querySelector("#btnExit");
+const btnClear = document.querySelector(".clear-button");
+const inputSerch = document.querySelector('#input_search');
 
 function notify(title, icon, body, timeout) {
     //debugger;
@@ -54,19 +60,18 @@ function generateContacts(response) {
             name: response[i].name,
             email: response[i].email,
             phone: response[i].phone,
-            url_photo: pfp
+            photo_url: pfp,
+            createdAt: response[i].createdAt
         };
     }
     contactsCount.innerHTML = parseInt(contactsCount.innerHTML) + response.length;
     return html;
 }
 
-function addEventListeners() {
-
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
-    if (!localStorage.getItem('authentication-token')) window.location.href = "login.html";
+
+    if (!localStorage.getItem('authentication-token')) return window.location.href = "login.html";
+
     await fetch("/contacts", {
         method: 'get',
         headers: {
@@ -76,7 +81,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
         .then(response => response.json())
         .then(response => {
+            if (response.error) return window.location.href = "login.html";
             contactsList.innerHTML = generateContacts(response.contacts);
+        });
+
+    await fetch("/user", {
+        method: 'get',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem('authentication-token')
+        }
+    })
+        .then(response => response.json())
+        .then(response => {
+            if (response.error) return window.location.href = "login.html";
+            const pfp = response.user.photo_url ? response.user.photo_url : 'default.jpg';
+            document.querySelector(".my-profile-img img").setAttribute("src", "media/" + pfp);
+            document.querySelector("#user_name").value = response.user.name;
+            document.querySelector("#user_email").value = response.user.email;
+            document.querySelector("#user_phone").value = response.user.phone;
         });
 });
 
@@ -93,19 +116,13 @@ btnAddContact.addEventListener('click', () => {
 formAddContact.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const form = new FormData(formAddContact);
-    const data = {};
-
-    form.forEach((value, key) => {
-        data[key] = value;
-    });
 
     await fetch('/contacts', {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('authentication-token')
         },
-        body: JSON.stringify(data)
+        body: form
     })
         .then(response => response.json())
         .then(response => {
@@ -139,7 +156,10 @@ contactsList.addEventListener('click', (evt) => {
     if (evt.target && evt.target.classList.contains('contact')) {
         const index = evt.target.getAttribute('data-contact-id');
         currentData = index;
+        const date = new Date(contactsData[index].createdAt);
 
+        document.querySelector('.pfp-img img').setAttribute('src', 'media/' + contactsData[index].photo_url);
+        document.querySelector('.modal-edit-contact .date-add .date').innerHTML = date.toLocaleDateString('en-US');
         document.querySelector('.modal-edit-contact-name').value = contactsData[index].name;
         document.querySelector('.modal-edit-contact-email').value = contactsData[index].email;
         document.querySelector('.modal-edit-contact-phone').value = contactsData[index].phone;
@@ -159,7 +179,6 @@ btnConfirmKeep.addEventListener('click', () => {
 });
 
 btnConfirmDelete.addEventListener('click', async () => {
-    console.log('../contacts/' + currentData);
     await fetch('../contacts/' + currentData, {
         method: 'delete',
         headers: {
@@ -174,9 +193,103 @@ btnConfirmDelete.addEventListener('click', async () => {
                 return;
             };
             document.querySelector('.contact[data-contact-id="' + currentData + '"]').remove();
+            //contactsData.splice(currentData, 1);
             contactsCount.innerHTML = parseInt(contactsCount.innerHTML) - 1;
             document.querySelector('.modal-confirm').style.display = "none";
             document.querySelector('.modal-edit-contact').style.display = "none";
-            notify("Error", "fa-check", 'Contact removed successfully!', 5000);
-        });
+            notify("Success", "fa-check", 'Contact removed successfully!', 5000);
+        })
+        .catch(err => console.log(err));
 });
+
+formEditProfile.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const form = new FormData(formEditProfile);
+
+    await fetch('/user', {
+        method: 'put',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('authentication-token')
+        },
+        body: form
+    })
+        .then(response => response.json())
+        .then(response => {
+            if (response.error) {
+                notify("Error", "fa-circle-info", response.error, 5000);
+                return;
+            }
+            const pfp = response.user.photo_url ? response.user.photo_url : 'default.jpg';
+            document.querySelector(".my-profile-img img").setAttribute("src", "media/" + pfp);
+            document.querySelector("#user_name").value = response.user.name;
+            document.querySelector("#user_email").value = response.user.email;
+            document.querySelector("#user_phone").value = response.user.phone;
+            notify("Success", "fa-circle-check", 'Profile updated successfully!', 5000);
+        })
+        .catch(err => console.log(err));
+});
+
+btnUpdate.addEventListener('click', () => document.querySelector("#trigger_submit").click());
+
+formEditContact.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const form = new FormData(formEditContact);
+    const data = {};
+
+    await fetch('/contacts/' + currentData, {
+        method: 'put',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('authentication-token')
+        },
+        body: form
+    })
+        .then(response => response.json())
+        .then(response => {
+            if (response.error) {
+                notify("Error", "fa-circle-info", response.error, 5000);
+                return;
+            }
+            const pfp = response.contact.photo_url ? response.contact.photo_url : 'default.jpg';
+            document.querySelector('.contact[data-contact-id="' + currentData + '"] .profile-img img').setAttribute('src', 'media/' + pfp);
+            document.querySelector('.contact[data-contact-id="' + currentData + '"] .profile-info .name').innerHTML = response.contact.name;
+            document.querySelector('.contact[data-contact-id="' + currentData + '"] .profile-info .subtitle').innerHTML = response.contact.phone;
+            contactsData[currentData] = {
+                name: response.contact.name,
+                email: response.contact.email,
+                phone: response.contact.phone,
+                photo_url: pfp
+            }
+            document.querySelector('.modal-edit-contact').style.display = "none";
+            notify("Success", "fa-circle-check", 'Contact updated successfully!', 5000);
+        })
+        .catch(err => console.log(err));
+});
+
+btnExit.addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = 'login.html';
+});
+
+const getSearch = () => {
+    const value = inputSerch.value;
+    const contacts = document.querySelectorAll('.contact');
+
+    contacts.forEach(contact => {
+        let contact_id = contact.getAttribute('data-contact-id');
+        if (
+            (contactsData[contact_id].name.toLowerCase()).includes(value.toLowerCase()) ||
+            (contactsData[contact_id].phone.toLowerCase()).includes(value.toLowerCase())
+        ) {
+            contact.style.display = 'flex';
+        } else {
+            contact.style.display = 'none';
+        }
+    });
+};
+
+btnClear.addEventListener('click', () => {
+    inputSerch.value = '';
+    getSearch();
+});
+
+inputSerch.addEventListener('input', getSearch);

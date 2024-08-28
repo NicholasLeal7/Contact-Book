@@ -15,6 +15,7 @@ router.post("/register", upload.single('photo_url'), authController.register);
 router.post("/login", authController.login);
 router.post("/logoff", privateRoute, authController.logoff);
 
+router.get("/user", privateRoute, userController.getUser);
 router.put("/user", privateRoute, upload.single("photo_url"), userController.updateUser);
 
 router.get("/contacts", privateRoute, contactController.getAllContacts);

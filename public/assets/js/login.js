@@ -91,6 +91,6 @@ formRegister.addEventListener("submit", async (evt) => {
                 window.location.href = "../index.html";
                 return;
             }
-            notify("Register Failed", "fa-circle-info", "Please, try again later.", 5000);
+            notify("Register Failed", "fa-circle-info", response.error, 5000);
         })
 });

@@ -60,6 +60,7 @@ export const addContact: RequestHandler = async (req, res, next) => {
     });
 
     const body = contactSchema.safeParse(req.body);
+
     if (!body.success) return next({ message: 'Invalid data!', status: 400 });
 
     if (req.file) {
@@ -100,8 +101,8 @@ export const updateContact: RequestHandler = async (req, res, next) => {
         body.data.photo_url = await addImage(req.file.path, req.file.filename);
     }
 
-    const updatedUser = await contactService.update(contact.contact_id, body.data);
-    if (updatedUser) return res.status(200).json({ user: updatedUser });
+    const updatedContact = await contactService.update(contact.contact_id, body.data);
+    if (updatedContact) return res.status(200).json({ contact: updatedContact });
 
     return next({ message: 'An error occured!', status: 500 });
 };

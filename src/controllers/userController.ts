@@ -22,6 +22,16 @@ const getIdByAuthorization = (authorization: string | undefined) => {
     return parseInt(payload.id);
 };
 
+export const getUser: RequestHandler = async (req, res, next) => {
+    const user_id: number | false = getIdByAuthorization(req.headers.authorization);
+    if (!user_id) return next({ message: 'Authorization error!', status: 401 });
+
+    const user = await findUserById(user_id);
+    if (!user) return next({ message: 'User not allowed!', status: 401 });
+
+    return res.status(200).json({ user });
+};
+
 export const updateUser: RequestHandler = async (req, res, next) => {
     const user_id: number | false = getIdByAuthorization(req.headers.authorization);
     if (!user_id) return next({ message: 'Authorization error!', status: 401 });
