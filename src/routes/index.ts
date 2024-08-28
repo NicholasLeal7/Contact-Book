@@ -4,6 +4,7 @@ import * as userController from '../controllers/userController';
 import * as contactController from '../controllers/contactController';
 import { privateRoute } from "../libs/passport";
 import multer from "multer";
+import path from 'path';
 
 const router = Router();
 

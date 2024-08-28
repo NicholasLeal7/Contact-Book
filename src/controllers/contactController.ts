@@ -60,7 +60,6 @@ export const addContact: RequestHandler = async (req, res, next) => {
     });
 
     const body = contactSchema.safeParse(req.body);
-
     if (!body.success) return next({ message: 'Invalid data!', status: 400 });
 
     if (req.file) {
